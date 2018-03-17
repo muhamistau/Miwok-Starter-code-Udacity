@@ -14,16 +14,24 @@ public class PhrasesActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         //Create an array of words
-        ArrayList<Word> words = new ArrayList<Word>();
+        ArrayList<Word> words = new ArrayList<>();
 
         //Add strings to words ArrayList
         //words.add("one");
-        words.add(new Word("Test", "Tesuto"));
-        words.add(new Word("Test 2", "Tesuto2"));
+        words.add(new Word("Where are you going?", "minto wuksus"));
+        words.add(new Word("What is your name?", "tinna oyaase'ne"));
+        words.add(new Word("My name is....", "oyaaset...."));
+        words.add(new Word("How are you feeling?", "michekses?"));
+        words.add(new Word("I'm feeling good.", "kuchi achit"));
+        words.add(new Word("Are you coming?", "eenes'aa?"));
+        words.add(new Word("Yes, I'm coming.", "hee' eenem"));
+        words.add(new Word("I'm coming.", "eenem"));
+        words.add(new Word("Let's go.", "yoowutis"));
+        words.add(new Word("Come here.", "enni'nem"));
 
 
         //ListView Adapter
-        WordAdapter adapter = new WordAdapter(this, words);
+        WordAdapter adapter = new WordAdapter(this, words, R.color.category_phrases);
 
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
