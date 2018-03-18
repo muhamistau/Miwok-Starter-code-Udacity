@@ -14,6 +14,13 @@ public class PhrasesActivity extends AppCompatActivity {
     //Use MediaPlayer API and create an global variable for it
     private MediaPlayer mMediaPlayer;
 
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            releaseMediaPlayer();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +55,16 @@ public class PhrasesActivity extends AppCompatActivity {
                 //Get the object at the given position the user clicked on
                 Word word = words.get(i);
 
+                //Release the media player if it currently exists because we are about to play a different song
+                releaseMediaPlayer();
+
                 //Create and setup the MediaPlayer for the audio resource associated with the current word
                 mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getAudioResourceId());
 
                 //Start the audio file
                 mMediaPlayer.start();
+
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
 
@@ -79,5 +91,17 @@ public class PhrasesActivity extends AppCompatActivity {
             rootView.addView(wordView);
         }*/
 
+    }
+
+    private void releaseMediaPlayer() {
+        //If the media player is not null, then it may be currenly palying sound
+        if (mMediaPlayer != null) {
+            //Regardles of the current state of the media player, release its resources because we no longer need it.
+            mMediaPlayer.release();
+
+            //Set media player back to null. For our code, we've decided that setting the media player to null is an easy way
+            //to tell that the media player is not configured to play an audio file at the moment.
+            mMediaPlayer = null;
+        }
     }
 }
